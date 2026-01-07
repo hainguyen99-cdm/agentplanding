@@ -1,0 +1,11 @@
+openai
+pyyaml
+pydantic
+faiss-cpu
+numpy
+requests
+gradio
+python-dotenv
+pymongo
+python-docx
+pypdf

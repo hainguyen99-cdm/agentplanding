@@ -1,0 +1,92 @@
+[
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_f33d9d9b9e0d",
+    "timestamp": "2025-12-09T10:06:41.638768",
+    "effectiveness": 0.95,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_db3a04c1f0a2",
+    "timestamp": "2025-12-09T12:04:54.411616",
+    "effectiveness": 0.95,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_3e737a2222c1",
+    "timestamp": "2025-12-09T12:04:54.416792",
+    "effectiveness": 0.92,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_255cac080921",
+    "timestamp": "2025-12-09T12:04:54.482602",
+    "effectiveness": 0.88,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_c1f463a51a64",
+    "timestamp": "2025-12-09T12:04:54.489208",
+    "effectiveness": 0.9,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_b8332067fef0",
+    "timestamp": "2025-12-09T15:34:47.838242",
+    "effectiveness": 0.95,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_6b7adf5ea58d",
+    "timestamp": "2025-12-09T15:34:47.847218",
+    "effectiveness": 0.92,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_0dc43c969ea5",
+    "timestamp": "2025-12-09T15:34:47.856193",
+    "effectiveness": 0.88,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  },
+  {
+    "agent_id": "learner_1",
+    "strategy": "collaboration",
+    "source_agent": "specialist_1",
+    "knowledge_id": "know_9bae8d77e05c",
+    "timestamp": "2025-12-09T15:34:47.861166",
+    "effectiveness": 0.9,
+    "description": "Learned from specialist_1",
+    "metadata": {}
+  }
+]

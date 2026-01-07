@@ -1,0 +1,22 @@
+[
+  {
+    "from_agent": "coordinator_1",
+    "to_agent": "executor_1",
+    "interaction_type": "task_delegation",
+    "timestamp": "2025-12-09T15:34:47.868323",
+    "content": "Task: Execute data processing pipeline",
+    "success": true,
+    "result": null,
+    "learning_outcome": null
+  },
+  {
+    "from_agent": "analyzer_1",
+    "to_agent": "specialist_1",
+    "interaction_type": "consultation",
+    "timestamp": "2025-12-09T15:34:47.875813",
+    "content": "neural networks",
+    "success": true,
+    "result": "Neural Networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process information.\nNeural Networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process information.",
+    "learning_outcome": null
+  }
+]

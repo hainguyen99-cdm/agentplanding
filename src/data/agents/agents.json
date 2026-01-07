@@ -1,0 +1,107 @@
+{
+  "coordinator_1": {
+    "agent_id": "coordinator_1",
+    "role": "coordinator",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.630188",
+    "last_activity": "2025-12-09T15:34:47.630188",
+    "knowledge_count": 0,
+    "interaction_count": 1,
+    "success_rate": 1.0,
+    "specializations": [
+      "task_management",
+      "team_coordination"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "team": "management"
+    }
+  },
+  "specialist_1": {
+    "agent_id": "specialist_1",
+    "role": "specialist",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.633390",
+    "last_activity": "2025-12-09T15:34:47.633390",
+    "knowledge_count": 0,
+    "interaction_count": 1,
+    "success_rate": 1.0,
+    "specializations": [
+      "data_analysis",
+      "machine_learning"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "expertise": "AI/ML"
+    }
+  },
+  "analyzer_1": {
+    "agent_id": "analyzer_1",
+    "role": "analyzer",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.636382",
+    "last_activity": "2025-12-09T15:34:47.636382",
+    "knowledge_count": 0,
+    "interaction_count": 1,
+    "success_rate": 1.0,
+    "specializations": [
+      "insights",
+      "pattern_recognition"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "focus": "data_insights"
+    }
+  },
+  "learner_1": {
+    "agent_id": "learner_1",
+    "role": "learner",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.644590",
+    "last_activity": "2025-12-09T15:34:47.644590",
+    "knowledge_count": 0,
+    "interaction_count": 0,
+    "success_rate": 1.0,
+    "specializations": [
+      "knowledge_acquisition"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "learning_focus": "general"
+    }
+  },
+  "executor_1": {
+    "agent_id": "executor_1",
+    "role": "executor",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.650161",
+    "last_activity": "2025-12-09T15:34:47.650161",
+    "knowledge_count": 0,
+    "interaction_count": 1,
+    "success_rate": 1.0,
+    "specializations": [
+      "task_execution"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "capability": "action_execution"
+    }
+  },
+  "validator_1": {
+    "agent_id": "validator_1",
+    "role": "validator",
+    "status": "idle",
+    "created_at": "2025-12-09T15:34:47.653543",
+    "last_activity": "2025-12-09T15:34:47.653543",
+    "knowledge_count": 0,
+    "interaction_count": 0,
+    "success_rate": 1.0,
+    "specializations": [
+      "quality_assurance"
+    ],
+    "learning_history": [],
+    "metadata": {
+      "focus": "validation"
+    }
+  }
+}

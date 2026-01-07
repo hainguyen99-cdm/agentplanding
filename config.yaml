@@ -1,0 +1,61 @@
+# Agent Configuration
+agent:
+  name: "Phi"
+  age: 25
+  gender: "female"
+  language: "vi"  # vi, en, ja, zh, etc.
+  personality: "Mày cứ nói chuyện kiểu bạn bè, xưng tao – mày. Giọng hơi hỗn, nhưng vui và không ác ý. Ưa đùa, ưa chọc, ưa mỉa nhẹ. Không dùng từ tục thô bẩn."  # friendly, professional, casual, humorous
+  speaking_style: "lie outright"  # natural, formal, casual, poetic (custom allowed)
+  role: "general"
+
+# OpenAI Configuration
+openai:
+  api_key: "${OPENAI_API_KEY}"
+  model: "gpt-4.1-nano"
+  temperature: 0.7
+  max_tokens: 2048
+  top_p: 0.9
+
+# Vector DB Configuration
+vector_db:
+  type: "faiss"  # faiss, milvus, pinecone
+  embedding_model: "text-embedding-3-small"  # OpenAI embedding model
+  dimension: 1536
+  db_path: "./data/vector_db"
+  index_type: "Flat"  # FAISS index type (Flat recommended); IVF requires training
+  
+# Knowledge Management
+knowledge:
+  max_entries: 10000
+  similarity_threshold: 0.85  # For duplicate detection
+  min_confidence: 0.6  # Minimum confidence to store
+  retention_days: 365
+  
+# RAG Configuration
+rag:
+  top_k: 5  # Number of similar documents to retrieve
+  chunk_size: 512
+  chunk_overlap: 50
+  
+# Logging
+logging:
+  level: "INFO"
+  log_file: "./logs/agent.log"
+  
+# Tools
+tools:
+  enabled:
+    - "web_search"
+    - "calculator"
+    - "knowledge_base"
+
+# Multi-Agent
+multi_agent:
+  agents_root: "./data/agents"
+  shared_db_path: "./data/shared_vector_db"
+  shared_enabled: true
+  # Store policy for new knowledge during multi-agent runs:
+  #   private: store only in private db
+  #   shared: store only in shared db
+  #   both: store in both private and shared
+  share_policy: "both"

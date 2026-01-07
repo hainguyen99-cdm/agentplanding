@@ -1,0 +1,277 @@
+{
+  "know_f33d9d9b9e0d": {
+    "id": "know_f33d9d9b9e0d",
+    "content": "Machine Learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T10:06:41.619789",
+    "confidence": 0.95,
+    "access_level": "public",
+    "tags": [
+      "learning",
+      "AI",
+      "ML"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T10:06:41.637770",
+    "metadata": {}
+  },
+  "know_aeda2c8aff95": {
+    "id": "know_aeda2c8aff95",
+    "content": "Neural Networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process information.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T10:06:41.620785",
+    "confidence": 0.92,
+    "access_level": "public",
+    "tags": [
+      "neural_networks",
+      "deep_learning"
+    ],
+    "related_entries": [],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_b3e3714081cd": {
+    "id": "know_b3e3714081cd",
+    "content": "Data preprocessing involves cleaning, transforming, and organizing raw data to make it suitable for analysis and model training.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T10:06:41.621782",
+    "confidence": 0.88,
+    "access_level": "public",
+    "tags": [
+      "preparation",
+      "data_processing"
+    ],
+    "related_entries": [],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_21b2830b78bc": {
+    "id": "know_21b2830b78bc",
+    "content": "Cross-validation is a technique to evaluate model performance by dividing data into multiple subsets and training on different combinations.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T10:06:41.622781",
+    "confidence": 0.9,
+    "access_level": "public",
+    "tags": [
+      "validation",
+      "model_evaluation"
+    ],
+    "related_entries": [],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_db3a04c1f0a2": {
+    "id": "know_db3a04c1f0a2",
+    "content": "Machine Learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T12:04:54.366997",
+    "confidence": 0.95,
+    "access_level": "public",
+    "tags": [
+      "learning",
+      "AI",
+      "ML"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T12:04:54.408624",
+    "metadata": {}
+  },
+  "know_3e737a2222c1": {
+    "id": "know_3e737a2222c1",
+    "content": "Neural Networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process information.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T12:04:54.372981",
+    "confidence": 0.92,
+    "access_level": "public",
+    "tags": [
+      "neural_networks",
+      "deep_learning"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T12:04:54.414918",
+    "metadata": {}
+  },
+  "know_255cac080921": {
+    "id": "know_255cac080921",
+    "content": "Data preprocessing involves cleaning, transforming, and organizing raw data to make it suitable for analysis and model training.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T12:04:54.376969",
+    "confidence": 0.88,
+    "access_level": "public",
+    "tags": [
+      "preparation",
+      "data_processing"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T12:04:54.417789",
+    "metadata": {}
+  },
+  "know_c1f463a51a64": {
+    "id": "know_c1f463a51a64",
+    "content": "Cross-validation is a technique to evaluate model performance by dividing data into multiple subsets and training on different combinations.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T12:04:54.379961",
+    "confidence": 0.9,
+    "access_level": "public",
+    "tags": [
+      "validation",
+      "model_evaluation"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T12:04:54.485229",
+    "metadata": {}
+  },
+  "know_b8332067fef0": {
+    "id": "know_b8332067fef0",
+    "content": "Machine Learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.766597",
+    "confidence": 0.95,
+    "access_level": "public",
+    "tags": [
+      "learning",
+      "AI",
+      "ML"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T15:34:47.835249",
+    "metadata": {}
+  },
+  "know_6b7adf5ea58d": {
+    "id": "know_6b7adf5ea58d",
+    "content": "Neural Networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) that process information.",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.769589",
+    "confidence": 0.92,
+    "access_level": "public",
+    "tags": [
+      "neural_networks",
+      "deep_learning"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T15:34:47.842231",
+    "metadata": {}
+  },
+  "know_0dc43c969ea5": {
+    "id": "know_0dc43c969ea5",
+    "content": "Data preprocessing involves cleaning, transforming, and organizing raw data to make it suitable for analysis and model training.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.776570",
+    "confidence": 0.88,
+    "access_level": "public",
+    "tags": [
+      "data_processing",
+      "preparation"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T15:34:47.852205",
+    "metadata": {}
+  },
+  "know_9bae8d77e05c": {
+    "id": "know_9bae8d77e05c",
+    "content": "Cross-validation is a technique to evaluate model performance by dividing data into multiple subsets and training on different combinations.",
+    "category": "procedural",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.779562",
+    "confidence": 0.9,
+    "access_level": "public",
+    "tags": [
+      "validation",
+      "model_evaluation"
+    ],
+    "related_entries": [],
+    "usage_count": 1,
+    "last_accessed": "2025-12-09T15:34:47.859143",
+    "metadata": {}
+  },
+  "know_9736cee15935": {
+    "id": "know_9736cee15935",
+    "content": "Supervised Learning: Training models with labeled data",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.969563",
+    "confidence": 0.9,
+    "access_level": "public",
+    "tags": [
+      "supervised_learning"
+    ],
+    "related_entries": [
+      "know_f834be0c1e86"
+    ],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_f834be0c1e86": {
+    "id": "know_f834be0c1e86",
+    "content": "Classification: Predicting discrete categories",
+    "category": "domain",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.972555",
+    "confidence": 0.88,
+    "access_level": "public",
+    "tags": [
+      "classification"
+    ],
+    "related_entries": [
+      "know_9736cee15935"
+    ],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_0e4b2f43fc70": {
+    "id": "know_0e4b2f43fc70",
+    "content": "Proprietary algorithm for optimization",
+    "category": "strategic",
+    "source_agent": "specialist_1",
+    "created_at": "2025-12-09T15:34:47.983528",
+    "confidence": 0.95,
+    "access_level": "private",
+    "tags": [],
+    "related_entries": [],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {}
+  },
+  "know_e426ae6e9420": {
+    "id": "know_e426ae6e9420",
+    "content": "Coordinator-specific strategy",
+    "category": "strategic",
+    "source_agent": "coordinator_1",
+    "created_at": "2025-12-09T15:34:47.990509",
+    "confidence": 0.9,
+    "access_level": "role_specific",
+    "tags": [],
+    "related_entries": [],
+    "usage_count": 0,
+    "last_accessed": null,
+    "metadata": {
+      "allowed_roles": [
+        "coordinator"
+      ]
+    }
+  }
+}

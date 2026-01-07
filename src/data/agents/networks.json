@@ -1,0 +1,28 @@
+{
+  "coordinator_1": [
+    "analyzer_1",
+    "executor_1",
+    "specialist_1"
+  ],
+  "specialist_1": [
+    "analyzer_1",
+    "learner_1",
+    "coordinator_1"
+  ],
+  "analyzer_1": [
+    "specialist_1",
+    "learner_1",
+    "coordinator_1"
+  ],
+  "learner_1": [
+    "analyzer_1",
+    "validator_1",
+    "specialist_1"
+  ],
+  "executor_1": [
+    "coordinator_1"
+  ],
+  "validator_1": [
+    "learner_1"
+  ]
+}

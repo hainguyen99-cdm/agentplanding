@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Env files
+.env
+
+# Logs
+logs/
+*.log
+
+# Data / runtime
+/data/
+
+# Vector DB / FAISS
+**/vector_db/
+**/*faiss*
+
+# Gradio
+.gradio/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.cursor/
+
+# Misc
+*.tmp
+

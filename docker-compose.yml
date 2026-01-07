@@ -1,0 +1,46 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: agentplaning_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentplaning_app
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      # Gradio bind
+      GRADIO_SERVER_NAME: 0.0.0.0
+      GRADIO_SERVER_PORT: 7860
+
+      # App env
+      # IMPORTANT: Your code reads MONGODB_URL (and also supports MONGGODB_URL typo)
+      MONGODB_URL: mongodb://mongodb:27017/
+
+      # Optional: config path if you use something else
+      # CONFIG_PATH: config.yaml
+
+      # You MUST provide your OpenAI key at deploy time.
+      # Best practice: export OPENAI_API_KEY in your shell or put it in a .env file (not committed)
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    ports:
+      - "7860:7860"
+    volumes:
+      # Persist app data (vector db, agents, shared db, etc.)
+      - app_data:/app/data
+      # Persist logs
+      - app_logs:/app/logs
+
+volumes:
+  mongodb_data:
+  app_data:
+  app_logs:
+

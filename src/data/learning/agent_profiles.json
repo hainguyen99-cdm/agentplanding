@@ -1,0 +1,40 @@
+{
+  "learner_1": {
+    "agent_id": "learner_1",
+    "total_knowledge": 0,
+    "knowledge_by_category": {},
+    "knowledge_sources": {
+      "specialist_1": 8
+    },
+    "learning_rate": 1.0,
+    "knowledge_retention": 0.95,
+    "specialization_areas": {},
+    "metadata": {
+      "learning_groups": [
+        {
+          "group_id": "group_ml_basics",
+          "topic": "Machine Learning Fundamentals",
+          "joined_at": "2025-12-09T15:34:47.979536"
+        }
+      ]
+    }
+  },
+  "analyzer_1": {
+    "agent_id": "analyzer_1",
+    "total_knowledge": 0,
+    "knowledge_by_category": {},
+    "knowledge_sources": {},
+    "learning_rate": 0.8,
+    "knowledge_retention": 0.95,
+    "specialization_areas": {},
+    "metadata": {
+      "learning_groups": [
+        {
+          "group_id": "group_ml_basics",
+          "topic": "Machine Learning Fundamentals",
+          "joined_at": "2025-12-09T15:34:47.979536"
+        }
+      ]
+    }
+  }
+}
