@@ -679,6 +679,100 @@ class AgentUI:
                         outputs=tool_output
                     )
                 
+                # DATA - Plan Library Tab (no emoji, safe for servers without unicode locale)
+                with gr.Tab("DATA - Plan Library"):
+                    gr.Markdown("## Plan Library (MongoDB)")
+
+                    # State for this tab
+                    lib_plan_state = gr.State(value=[])
+                    lib_full_plan_state = gr.State(value=None)
+                    lib_plan_id_state = gr.State(value=None)
+
+                    with gr.Row():
+                        lib_refresh_btn = gr.Button("Refresh plans")
+                        lib_plans_dd = gr.Dropdown(label="Select plan", choices=[], interactive=True)
+                        lib_load_plan_btn = gr.Button("Load plan", variant="primary")
+
+                    lib_status = gr.Textbox(label="Status", interactive=False, lines=2)
+
+                    with gr.Row():
+                        with gr.Column(scale=4):
+                            lib_plan_df = gr.Dataframe(
+                                headers=["Idx", "Date", "Title", "Summary"],
+                                datatype=["number", "str", "str", "str"],
+                                interactive=False,
+                                wrap=True
+                            )
+                        with gr.Column(scale=1):
+                            lib_post_selector = gr.Radio(label="Select post", choices=[], interactive=True)
+
+                    gr.Markdown("### Article (saved)")
+                    with gr.Row():
+                        lib_load_article_btn = gr.Button("Load article", variant="primary")
+
+                    lib_article_title = gr.Textbox(label="Article title", lines=2, interactive=False)
+                    lib_article_md = gr.Markdown(value="(no article loaded)")
+                    lib_article_gallery = gr.Gallery(label="Images", columns=4, preview=True)
+
+                    def _lib_list_plans():
+                        # Reuse existing list method
+                        dd_update, msg = self._list_saved_plans()
+                        # dd_update is gr.update for dropdown; apply to this dropdown
+                        return dd_update, msg
+
+                    def _lib_load_plan(selected_label: str):
+                        msg, plan_df_data, plan_state_data, full_plan, plan_id, _selector_update = self._load_plan_from_db(selected_label)
+                        # Build selector choices
+                        if plan_df_data:
+                            choices = [f"#{row[0]}: {row[2][:50]}..." if len(row[2]) > 50 else f"#{row[0]}: {row[2]}" for row in plan_df_data]
+                        else:
+                            choices = []
+                        return msg, plan_df_data, plan_state_data, full_plan, plan_id, gr.update(choices=choices, value=None)
+
+                    def _lib_load_article(plan_id: str, selected_post, full_plan):
+                        if not plan_id:
+                            return "❌ No plan loaded", "", "(no article loaded)", []
+                        post = None
+                        if isinstance(full_plan, dict) and isinstance(full_plan.get("posts"), list):
+                            # Reuse helper from Dashboard section if available in scope later; otherwise parse here
+                            try:
+                                if isinstance(selected_post, str) and selected_post.strip().startswith("#"):
+                                    idx_int = int(selected_post.split(":")[0].replace("#", "").strip())
+                                else:
+                                    idx_int = int(selected_post)
+                                posts_list = full_plan.get("posts", [])
+                                if 0 <= idx_int < len(posts_list) and isinstance(posts_list[idx_int], dict):
+                                    post = posts_list[idx_int]
+                            except Exception:
+                                post = None
+                        if not post:
+                            return "❌ No post selected", "", "(no article loaded)", []
+                        post_id = post.get("post_id")
+                        if not post_id:
+                            return "❌ Missing post_id", "", "(no article loaded)", []
+                        if self.articles_col is None:
+                            return "❌ MongoDB not ready", "", "(no article loaded)", []
+                        doc = self.articles_col.find_one({"plan_id": plan_id, "post_id": post_id})
+                        if not doc:
+                            return "⚠️ Article not found", "", "(no article loaded)", []
+                        title = doc.get("title", "")
+                        content = doc.get("content", "")
+                        imgs = doc.get("images", []) or []
+                        gallery = [(u, u) for u in imgs] if imgs else []
+                        return "✅ Loaded", title, content, gallery
+
+                    lib_refresh_btn.click(_lib_list_plans, outputs=[lib_plans_dd, lib_status])
+                    lib_load_plan_btn.click(
+                        _lib_load_plan,
+                        inputs=[lib_plans_dd],
+                        outputs=[lib_status, lib_plan_df, lib_plan_state, lib_full_plan_state, lib_plan_id_state, lib_post_selector]
+                    )
+                    lib_load_article_btn.click(
+                        _lib_load_article,
+                        inputs=[lib_plan_id_state, lib_post_selector, lib_full_plan_state],
+                        outputs=[lib_status, lib_article_title, lib_article_md, lib_article_gallery]
+                    )
+
                 # Dashboard Tab
                 with gr.Tab("🧭 Dashboard"):
                     gr.Markdown("## Agents")
