@@ -4,7 +4,7 @@ from dataclasses import dataclass, asdict, field
 from typing import List, Dict, Optional, Tuple, Any
 from pathlib import Path
 import json
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from config import get_config
 from agent import AIAgent
@@ -316,12 +316,12 @@ class MultiAgentOrchestrator:
         # Schema and timeframe hints
         schema = {
             "task": "web3_market_content_plan",
-            "timeframe": "string (ví dụ: 2025-12-23..2025-12-29)",
+            "timeframe": "string (ví dụ: 2026-01-01 08:00..2026-01-01 23:00 hoặc 2026-01-01..2026-01-05)",
             "network": "string (ví dụ: ethereum)",
             "summary": "string tóm tắt phân tích thị trường",
             "posts": [
                 {
-                    "date": "YYYY-MM-DD",
+                    "datetime": "YYYY-MM-DD HH:MM",
                     "title": "string",
                     "summary": "string",
                     "outline": ["bullet 1", "bullet 2"],
@@ -333,7 +333,7 @@ class MultiAgentOrchestrator:
         }
         cfg = get_config()
         recent = "\n".join([f"- {who}: {_sanitize(msg)}" for who, msg in transcript[-history_window:]]) if transcript else "(chưa có)"
-        
+
         # Build prompt with a CORRECT timeframe hint for the future
         prompt_lines = [
             f"Bạn là {exec_agent.config.agent.name}, executor của nhóm.",
@@ -352,12 +352,101 @@ class MultiAgentOrchestrator:
             f"Gợi ý: Thời gian cho kế hoạch nên là 'tuần tới' (ví dụ: {timeframe_hint}). Nếu đề bài yêu cầu khác, hãy tuân theo đề bài."
         )
 
+        # --- Auto-parse scheduling constraints from the task prompt (VI + EN) ---
+        # Supports:
+        # - "10 ngày mỗi ngày 1 bài" / "10 days 1 post per day"
+        # - "1 ngày 10 bài" / "1 day 10 posts"
+        # - "5 ngày 10 bài" / "5 days 10 posts"
+        expected_total_posts = None
+        expected_days = None
+        expected_posts_per_day = None
+        require_today = False
+        try:
+            import re
+            t = (task_prompt or "").lower()
+
+            # Detect 'today' requirement
+            if re.search(r"\b(today)\b", t) or "hôm nay" in t:
+                require_today = True
+
+            # Vietnamese: "X ngày mỗi ngày Y bài"
+            m = re.search(r"(\d+)\s*ng[àa]y[^\d]{0,30}m[ỗo]i\s*ng[àa]y\s*(\d+)\s*b[àa]i", t)
+            if m:
+                expected_days = int(m.group(1))
+                expected_posts_per_day = int(m.group(2))
+                expected_total_posts = expected_days * expected_posts_per_day
+
+            # English: "X days Y posts per day" / "X days Y post per day"
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*days?[^\d]{0,30}(\d+)\s*posts?\s*per\s*day", t)
+                if m:
+                    expected_days = int(m.group(1))
+                    expected_posts_per_day = int(m.group(2))
+                    expected_total_posts = expected_days * expected_posts_per_day
+
+            # Vietnamese: "X ngày Y bài"
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*ng[àa]y[^\d]{0,20}(\d+)\s*b[àa]i", t)
+                if m:
+                    expected_days = int(m.group(1))
+                    expected_total_posts = int(m.group(2))
+
+            # English: "X days Y posts"
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*days?[^\d]{0,20}(\d+)\s*posts?", t)
+                if m:
+                    expected_days = int(m.group(1))
+                    expected_total_posts = int(m.group(2))
+
+            # Vietnamese: "X ngày" only (fallback)
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*ng[àa]y", t)
+                if m:
+                    expected_days = int(m.group(1))
+
+            # English: "X days" only (fallback)
+            if expected_total_posts is None and expected_days is None:
+                m = re.search(r"(\d+)\s*days?", t)
+                if m:
+                    expected_days = int(m.group(1))
+
+            # Vietnamese: "X bài" only (fallback)
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*b[àa]i", t)
+                if m:
+                    expected_total_posts = int(m.group(1))
+
+            # English: "X posts" only (fallback)
+            if expected_total_posts is None:
+                m = re.search(r"(\d+)\s*posts?", t)
+                if m:
+                    expected_total_posts = int(m.group(1))
+        except Exception:
+            expected_total_posts = None
+
         prompt_lines.extend([
             "Hãy điền network, summary ngắn, và danh sách posts chi tiết.",
-            "QUAN TRỌNG: Kết quả PHẢI chứa một danh sách 'posts' không rỗng, mỗi post là một object chứa đầy đủ các trường theo schema."
+            "QUAN TRỌNG:",
+            "- Mỗi post PHẢI có trường 'datetime' theo format YYYY-MM-DD HH:MM (có đủ ngày-tháng-năm + giờ:phút).",
+            "- Không tự ý giảm số lượng bài; nếu thiếu thông tin, hãy giả định khung giờ hợp lý (ví dụ 08:00-22:00).",
         ])
+
+        if require_today:
+            today_str = today.isoformat()
+            prompt_lines.extend([
+                "- BẮT BUỘC: Tất cả posts phải được đăng TRONG NGÀY HÔM NAY / TODAY.",
+                f"- Ngày hôm nay là {today_str}. Do đó, mọi post phải có datetime bắt đầu bằng '{today_str} '.",
+                "- Nếu có mâu thuẫn giữa '2026' và 'today', hãy ưu tiên 'today' cho lịch đăng.",
+            ])
+
+        if expected_total_posts is not None:
+            prompt_lines.append(f"- BẮT BUỘC: Tổng số posts phải đúng bằng {expected_total_posts}.")
+            if expected_days is not None:
+                prompt_lines.append(f"- Nếu được, hãy phân bổ các posts trong khoảng {expected_days} ngày (không nhất thiết đều nhau nếu đề bài không yêu cầu).")
+
+        prompt_lines.append("- Kết quả PHẢI chứa một danh sách 'posts' không rỗng, mỗi post là một object chứa đầy đủ các trường theo schema.")
         synth_prompt = "\n".join(prompt_lines)
-        
+
         # Call model
         orig = exec_agent.config.openai.max_tokens
         exec_agent.config.openai.max_tokens = 4096
@@ -379,21 +468,67 @@ class MultiAgentOrchestrator:
                     parsed = None
         if not isinstance(parsed, dict):
             return False, None
-        
-        # Basic validation & ID injection
+
+        # Basic validation
         if "task" not in parsed or "posts" not in parsed or not isinstance(parsed.get("posts"), list) or len(parsed["posts"]) == 0:
             return False, None
 
-        # Inject a simple, unique post_id for linking articles later
+        # --- Normalize posts ---
+        # Helper to generate default times
+        default_times = [
+            "08:00", "09:30", "11:00", "12:30", "14:00",
+            "15:30", "17:00", "18:30", "20:00", "21:30"
+        ]
+        today_prefix = today.isoformat() if require_today else None
+
+        normalized_posts: List[Dict[str, Any]] = []
         for i, post in enumerate(parsed["posts"]):
             if not isinstance(post, dict):
-                continue # Skip malformed entries
-            post["post_id"] = f"post_{i}"
-        
-        # If the model didn't generate a timeframe, fill it with our future-dated hint
+                continue
+
+            # Ensure post_id stable
+            post["post_id"] = post.get("post_id", f"post_{i}")
+
+            # Normalize datetime
+            dt_val = post.get("datetime") or post.get("date") or ""
+            dt_val = str(dt_val).strip()
+
+            # Fill missing datetime
+            if not dt_val:
+                # Use today if required, otherwise leave blank and let UI show empty
+                if today_prefix:
+                    t_part = default_times[i % len(default_times)]
+                    dt_val = f"{today_prefix} {t_part}"
+
+            # Force date part to today if required
+            if today_prefix and dt_val:
+                # Try to keep HH:MM from existing
+                import re
+                mtime = re.search(r"(\d{1,2}:\d{2})", dt_val)
+                t_part = mtime.group(1) if mtime else default_times[i % len(default_times)]
+                dt_val = f"{today_prefix} {t_part}"
+
+            post["datetime"] = dt_val
+            # Remove legacy date to avoid confusion
+            if "date" in post and post.get("date") and post.get("datetime"):
+                pass
+
+            normalized_posts.append(post)
+
+        # Enforce expected_total_posts if present
+        if expected_total_posts is not None and len(normalized_posts) > 0:
+            if len(normalized_posts) > expected_total_posts:
+                normalized_posts = normalized_posts[:expected_total_posts]
+            # If fewer than expected_total_posts, do NOT pad with '(auto)'. Keep model output as-is.
+            # elif len(normalized_posts) < expected_total_posts:
+            #     pass
+
+        parsed["posts"] = normalized_posts
+
+        # If the model didn't generate a timeframe, fill it with our hint
         if timeframe_hint and not parsed.get("timeframe"):
             parsed["timeframe"] = timeframe_hint
-            
+
         return True, parsed
 
     def _execute_action(self, action: Dict[str, Any], data: Any) -> Dict[str, Any]:
@@ -457,4 +592,3 @@ class MultiAgentOrchestrator:
                 return {"status": "skipped", "reason": f"unknown action type: {a_type}"}
         except Exception as e:
             return {"status": "error", "error": str(e)}
-

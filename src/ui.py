@@ -308,7 +308,7 @@ class AgentUI:
                     post["post_id"] = post.get("post_id", f"post_{i}")
                     plan_data_for_df.append([
                         i,
-                        post.get("date", ""),
+                        post.get("datetime", post.get("date", "")),
                         post.get("title", ""),
                         post.get("summary", ""),
                     ])
@@ -878,7 +878,7 @@ class AgentUI:
                     with gr.Row():
                         with gr.Column(scale=4):
                             plan_df = gr.Dataframe(
-                                headers=["Idx", "Ngày", "Tiêu đề", "Tóm tắt"],
+                                headers=["Idx", "Datetime", "Tiêu đề", "Tóm tắt"],
                                 datatype=["number", "str", "str", "str"],
                                 interactive=False,
                                 wrap=True
