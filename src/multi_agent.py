@@ -4,7 +4,7 @@ from dataclasses import dataclass, asdict, field
 from typing import List, Dict, Optional, Tuple, Any
 from pathlib import Path
 import json
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta, datetime, timezone
 
 from config import get_config
 from agent import AIAgent
@@ -343,8 +343,12 @@ class MultiAgentOrchestrator:
             f"\nBối cảnh gần đây:\n{recent}\n"
         ]
 
-        # Generate a correct timeframe hint for the next 7 days
-        today = date.today()
+        # Use UTC+7 (Asia/Ho_Chi_Minh style) for scheduling
+        tz = timezone(timedelta(hours=7))
+        now_tz = datetime.now(tz)
+        today = now_tz.date()
+
+        # Generate a correct timeframe hint for the next 7 days (UTC+7)
         next_week_start = today + timedelta(days=1)
         next_week_end   = today + timedelta(days=7)
         timeframe_hint  = f"{next_week_start.isoformat()}..{next_week_end.isoformat()}"
